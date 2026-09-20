@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Kamu, Wina 💗</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="assets/lagu.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- ============================================== -->
+    <!-- 1. LANDING PAGE (PIN LOCK)                     -->
+    <!-- ============================================== -->
+    <div id="pin-screen" class="screen active">
+        <div class="pin-container">
+            <h1 class="pin-title">Untuk kamu, Wina 💗</h1>
+            <p class="pin-subtitle">Masukkan kode rahasia</p>
+            
+            <div class="pin-indicators" id="pin-indicators">
+                <!-- Dots will be populated by JS based on PIN length -->
+            </div>
+            
+            <div class="numpad">
+                <button class="num-btn" data-val="1">1</button>
+                <button class="num-btn" data-val="2">2</button>
+                <button class="num-btn" data-val="3">3</button>
+                <button class="num-btn" data-val="4">4</button>
+                <button class="num-btn" data-val="5">5</button>
+                <button class="num-btn" data-val="6">6</button>
+                <button class="num-btn" data-val="7">7</button>
+                <button class="num-btn" data-val="8">8</button>
+                <button class="num-btn" data-val="9">9</button>
+                <div class="num-btn empty"></div>
+                <button class="num-btn" data-val="0">0</button>
+                <button class="num-btn del-btn" id="del-btn">✕</button>
+            </div>
+            
+            <p class="pin-hint">Hint: Tanggal Jadian kita (😘✨🤗💗)</p>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 1.5 GIFT SCREEN (MUNCUL SETELAH PIN BENAR)     -->
+    <!-- ============================================== -->
+    <div id="gift-screen" class="screen hidden">
+        <div class="gift-container-minimal">
+            <p class="gift-top-text">✦ ADA SESUATU UNTUKMU ✦</p>
+            
+            <div class="glow-container" id="gift-box">
+                <div class="gift-glow" id="gift-glow"></div>
+                <div class="gift-box-svg">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="#fce4ec" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Box Body -->
+                        <rect x="20" y="40" width="60" height="50" rx="2" />
+                        <!-- Box Lid -->
+                        <rect x="15" y="25" width="70" height="15" rx="2" />
+                        <!-- Vertical Ribbon -->
+                        <line x1="43" y1="25" x2="43" y2="90" />
+                        <line x1="57" y1="25" x2="57" y2="90" />
+                        <!-- Horizontal Ribbon -->
+                        <line x1="20" y1="60" x2="80" y2="60" />
+                        <line x1="20" y1="70" x2="80" y2="70" />
+                        <!-- Bow -->
+                        <path d="M 50 25 C 35 5, 15 15, 45 25 Z" />
+                        <path d="M 50 25 C 65 5, 85 15, 55 25 Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <p class="gift-bottom-text">klik untuk membuka hadiahmu</p>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 2. HALAMAN UTAMA (MUNCUL SETELAH KADO DIBUKA)  -->
+    <!-- ============================================== -->
+    <div id="main-screen" class="screen hidden">
+        <!-- Latar belakang bintang (Fixed) -->
+        <canvas id="stars-bg" class="stars-bg"></canvas>
+        
+        <!-- Konten yang bisa di-scroll -->
+        <div class="main-content">
+            <!-- COUNTDOWN SECTION (Slide 0) -->
+            <section class="slide-section active" id="slide-0">
+                <div class="cd-blur-bg"></div>
+                <div class="cd-header">
+                    <p class="cd-eyebrow">✦ MENGHITUNG HARI ✦</p>
+                    <h2 class="cd-title">
+                        <span class="cd-title-1">Her Special Day</span><br>
+                        <span class="cd-title-2">is Coming</span>
+                    </h2>
+                    <p class="cd-subtitle">Sesuatu yang indah sedang menunggu untukmu 🤍</p>
+                </div>
+
+                <div class="countdown-cards" id="countdown">
+                    <div class="cd-card">
+                        <span class="cd-num" id="cd-days">00</span>
+                        <span class="cd-label">HARI</span>
+                    </div>
+                    <span class="cd-colon">:</span>
+                    <div class="cd-card">
+                        <span class="cd-num" id="cd-hours">00</span>
+                        <span class="cd-label">JAM</span>
+                    </div>
+                    <span class="cd-colon">:</span>
+                    <div class="cd-card">
+                        <span class="cd-num" id="cd-minutes">00</span>
+                        <span class="cd-label">MENIT</span>
+                    </div>
+                    <span class="cd-colon">:</span>
+                    <div class="cd-card">
+                        <span class="cd-num" id="cd-seconds">00</span>
+                        <span class="cd-label">DETIK</span>
+                    </div>
+                </div>
+
+                <p class="cd-bottom-text" id="cd-msg-top" style="margin-bottom: 1rem;">⏳ Beberapa detik lagi... 🤍</p>
+                <button class="cd-next-btn locked" id="open-gift-btn">
+                    <div class="btn-fill"></div>
+                    <span class="btn-text">🔒 TUNGGU SAMPAI WAKTUNYA 🔒</span>
+                </button>
+                <p class="cd-bottom-text-small" id="cd-msg-bottom" style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Tersisa <span id="cd-remaining">00:00</span> lagi</p>
+            </section>
+
+            <!-- YOUR SPECIAL DAY (Slide 1) -->
+            <section class="slide-section hidden" id="slide-1">
+                <div class="cd-blur-bg"></div>
+                <div class="polaroids-container">
+                    <div class="polaroid p-left p-1"></div>
+                    <div class="polaroid p-left p-2"></div>
+                    <div class="polaroid p-left p-3"></div>
+                    <div class="polaroid p-right p-4"></div>
+                    <div class="polaroid p-right p-5"></div>
+                    <div class="polaroid p-right p-6"></div>
+                </div>
+                <div class="hero-content" style="z-index: 2;">
+                    <p class="cd-eyebrow" style="margin-bottom: 1.5rem;">✦ A LOVE LETTER FOR YOU ✦</p>
+                    <h2 class="cd-title" style="font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; font-style: normal; text-shadow: 0 0 20px rgba(255,255,255,0.3);">Your<br>Special Day</h2>
+                    <p class="cd-subtitle" style="margin-bottom: 2.5rem; font-size: 1rem; color: rgba(255,255,255,0.9);"><i>Created with love, just for you</i></p>
+                    <button class="next-btn btn-pink-fill locked" id="read-letter-btn">✦ READ MY LETTER ✦</button>
+                </div>
+            </section>
+
+            <!-- HAPPY BIRTHDAY CARD (Slide 2) -->
+            <section class="slide-section hidden" id="slide-2">
+                <div class="hero-content" style="max-width: 800px; width: 90%;">
+                    <h1 class="hero-title" style="font-size: 3rem; margin-bottom: 2rem;">Happy Birthday</h1>
+                    
+                    <div class="glass-card typewriter-card">
+                        <div class="quote-icon">"</div>
+                        <p id="typewriter-text" class="typewriter-text"></p>
+                    </div>
+                    
+                    <button class="next-btn btn-pink-fill locked" id="hero-next-btn" style="opacity: 0; transition: opacity 1s ease;">OUR MEMORIES ✦</button>
+                </div>
+            </section>
+
+            <!-- OUR MEMORIES (Slide 3) -->
+            <section class="slide-section hidden" id="slide-3">
+                <div class="hero-content" style="max-width: 1100px; width: 100%;">
+                    <h2 class="cd-title" style="font-size: 3.5rem; margin-bottom: 0.5rem; font-style: normal; text-shadow: 0 0 15px rgba(255,255,255,0.3);">Our Memories</h2>
+                    <p class="cd-eyebrow" style="margin-bottom: 3rem; text-transform: lowercase; font-style: italic; color: rgba(255,255,255,0.8);">✦ every moment captured in love... ✦</p>
+                    
+                    <div class="memories-grid">
+                        <div class="mem-row">
+                            <div class="m-polaroid m-1" style="transform: rotate(-3deg); margin-top: 15px;"></div>
+                            <div class="m-polaroid m-2" style="transform: rotate(2deg);"></div>
+                            <div class="m-polaroid m-3" style="transform: rotate(-1deg);"></div>
+                            <div class="m-polaroid m-4" style="transform: rotate(4deg); margin-top: 20px;"></div>
+                        </div>
+                        <div class="mem-row" style="margin-top: -15px;">
+                            <div class="m-polaroid m-5" style="transform: rotate(2deg);"></div>
+                            <div class="m-polaroid m-6" style="transform: rotate(-4deg); margin-top: 10px;"></div>
+                            <div class="m-polaroid m-7" style="transform: rotate(3deg);"></div>
+                            <div class="m-polaroid m-8" style="transform: rotate(-2deg); margin-top: 5px;"></div>
+                        </div>
+                        <div class="mem-row" style="margin-top: -15px;">
+                            <div class="m-polaroid m-9" style="transform: rotate(-2deg); margin-top: 15px;"></div>
+                            <div class="m-polaroid m-10" style="transform: rotate(3deg);"></div>
+                            <div class="m-polaroid m-11" style="transform: rotate(-1deg); margin-top: 10px;"></div>
+                            <div class="m-polaroid m-12" style="transform: rotate(4deg); margin-top: 5px;"></div>
+                        </div>
+                    </div>
+
+                    <button class="next-btn btn-pink-fill locked" style="margin-top: 4rem;">A MOMENT FOR YOU ✦</button>
+                </div>
+            </section>
+
+            <!-- VIDEO SECTION (Slide 4) -->
+            <section class="slide-section hidden" id="slide-4">
+                <div class="hero-content" style="max-width: 800px; width: 90%;">
+                    <h2 class="cd-title" style="font-size: 3rem; margin-bottom: 0.5rem; font-style: normal; text-shadow: 0 0 15px rgba(255,255,255,0.3);">A Moment For You</h2>
+                    <p class="cd-eyebrow" style="margin-bottom: 3rem; text-transform: lowercase; font-style: italic; color: rgba(255,255,255,0.8);">✦ a special video message ✦</p>
+                    
+                    <div class="video-container" style="border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); position: relative; width: 100%; max-width: 320px; margin: 0 auto; aspect-ratio: 9/16;">
+                        <video controls style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; object-fit: cover;" id="my-video">
+                            <source src="assets/vidio/video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <button class="next-btn btn-pink-fill locked" style="margin-top: 3rem;">BIRTHDAY WISHES ✦</button>
+                </div>
+            </section>
+
+            <!-- BIRTHDAY WISHES (Slide 5) -->
+            <section class="slide-section hidden" id="slide-5">
+                <div class="hero-content" style="max-width: 800px; width: 90%;">
+                    <div class="glass-card" style="background: rgba(25, 20, 35, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 3rem 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                        <h2 class="cd-title" style="font-size: 3rem; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,255,255,0.3);">Birthday Wishes</h2>
+                        <p style="font-family: var(--font-serif); font-style: italic; color: #ffb3c1; margin-bottom: 2rem; font-size: 1.1rem;">Happy Birthday, my love 🤍</p>
+                        
+                        <p style="font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.9); margin-bottom: 2rem;">
+                            I wish you happiness, good health, success, and endless blessings in this new chapter of your life. May all your dreams come true, your days be filled with joy, and your heart always find peace. Thank you for being such a wonderful part of my life. I hope this year brings you everything you've been wishing for. Stay happy, stay healthy, and keep shining. I love you always. 💖
+                        </p>
+                        
+                        <div style="font-size: 1.5rem; margin-bottom: 2rem; color: #ffb3c1;">🤍</div>
+
+                        <button class="next-btn btn-pink-fill locked" style="margin-top: 0; padding: 1rem 2.5rem; border-radius: 30px; letter-spacing: 2px; border: none; font-weight: 600;">ONE MORE THING ✦</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HERO SECTION (Slide 6) -->
+            <section class="slide-section hidden" id="slide-6">
+                <div class="hero-content">
+                    <p class="hero-pretitle">Happy Birthday,</p>
+                    <h1 class="hero-title">Wina My Future Wife</h1>
+                    <p class="hero-subtitle"><i>Thank you for being part of my life.<br>I hope this little gift can make your special day even more beautiful.</i></p>
+                    <p class="hero-closing">Forever yours. 💗</p>
+                    <button class="replay-btn" id="replay-btn" style="margin-top: 3rem;">↺ REPLAY FROM START</button>
+                </div>
+            </section>
+
+        </div> <!-- end of main-content -->
+    </div>
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
